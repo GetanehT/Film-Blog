@@ -28,8 +28,12 @@ SECRET_KEY = 'django-insecure-53c7h7ix5=sgahzw*!=ovug-o@j#cmhrdmdj!_!i)#zwd_t(9!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["8000-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net"]
 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net',
+]
 
 # Application definition
 
@@ -41,9 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
+    'django_extensions',
+   # 'corsheaders',
     'django_summernote',
-    'blogs',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -61,20 +66,19 @@ ROOT_URLCONF = 'blogs.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR), 'build'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
-
 WSGI_APPLICATION = 'blogs.wsgi.application'
 
 
@@ -125,10 +129,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
-]
+STATIC_URL = "/static/"
+
+#STATICFILES_DIRS = [
+ #   os.path.join(BASE_DIR, '')
+#]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
