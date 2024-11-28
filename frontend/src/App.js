@@ -1,26 +1,22 @@
-import React from 'react';
-//import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from './hocs/Layout';
 import Home from './components/Home';
 import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
 import Category from './components/Category';
-import { Routes, Route } from 'react-router-dom';
 
 
-
-const App = () => (
-    
-        
+const App = () => {
+    return (
+        <Router>
             <Routes>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/blog' component={Blog} />
-                <Route exact path='/category/:id' component={Category} />
-                <Route exact path='/blog/:id' component={BlogDetail} />
+                <Route path="/" element={<Home />} />
+                <Route path="/category" element={<Category />} />
+                <Route path="/blog/:id" element={<BlogDetail />} />
             </Routes>
-        
-
-);
-
+        </Router>
+    );
+};
 
 export default App;
