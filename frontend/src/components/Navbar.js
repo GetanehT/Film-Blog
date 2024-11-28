@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const navbar = () => (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to='/'>Blog Lyfe</Link>
+        <Link className="navbar-brand" to='/'>Blog Guide</Link>
         <button 
             className="navbar-toggler"
             type="button"
@@ -18,7 +18,7 @@ const navbar = () => (
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item active">
-                    <NavLink className="nav-link" exact to='/'>Home <span className="sr-only">(current)</span></NavLink>
+                    <NavLink className="nav-link" exact to='/'>Home <span className="sr-only"></span></NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link" exact to='/blog'>Blog</NavLink>

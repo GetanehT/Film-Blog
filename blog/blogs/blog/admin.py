@@ -8,3 +8,4 @@ class PostAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
 
 admin.site.register(Post, PostAdmin)
 # Register your models here.
+ 
