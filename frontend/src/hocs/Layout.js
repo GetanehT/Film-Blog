@@ -1,11 +1,15 @@
+// src/hocs/Layout.js
 import React from 'react';
-import Navbar from '../components/Navbar';
 
-const layout = (props) => (
+const Layout = ({ children }) => {
+  return (
     <div>
-        <Navbar />
-        {props.children}
+      <nav>
+        {/* Navbar or any other layout structure */}
+      </nav>
+      <main>{children}</main>  {/* This renders the matched route's component */}
     </div>
-);
+  );
+};
 
-export default layout;
+export default Layout;
