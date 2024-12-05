@@ -3,6 +3,6 @@ from .models import Post
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BlogPost
+        model = Post
         fields = '__all__'
         lookup_field = 'slug'

@@ -1,12 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from blog.models import Post
-from blog.serializers import PostSerializer
+from blog.serilaizers import PostSerializer
 
 class PostListView(ListAPIView):
     queryset = Post.objects.order_by('-date_created')
@@ -21,7 +19,7 @@ class PostDetailView(RetrieveAPIView):
     permission_classes = (permissions.AllowAny, )
 
 class PostFeaturedView(ListAPIView):
-    queryset = BlogPost.objects.all().filter(featured=True)
+    queryset = Post.objects.all().filter(featured=True)
     serializer_class = PostSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny, )

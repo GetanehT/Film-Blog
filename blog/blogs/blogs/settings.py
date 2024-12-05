@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-53c7h7ix5=sgahzw*!=ovug-o@j#cmhrdmdj!_!i)#zwd_t(9!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8000-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net"]
+ALLOWED_HOSTS = ["8000-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net",]
 
 
 CSRF_TRUSTED_ORIGINS = [
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_extensions',
-   # 'corsheaders',
+    'corsheaders',
     'django_summernote',
     'blog',
 ]
@@ -156,3 +156,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
