@@ -16,8 +16,10 @@ const Category = () => {
                 const res = await axios.post(
                     `${process.env.REACT_APP_API_URL}/api/blog/category`,
                     { category },
-                    { headers: { 'Content-Type': 'application/json' } }
+                    { headers: { 'Content-Type': 'application/json'} }
+                    
                 );
+                console.log(res)
                 setBlogs(res.data);
             } catch (err) {
                 console.error('Error fetching blogs:', err);
