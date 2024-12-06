@@ -19,7 +19,7 @@ const Category = () => {
                     { headers: { 'Content-Type': 'application/json'} }
                     
                 );
-                console.log(res)
+                const blogsData = Array.isArray(res.data) ? res.data : [];
                 setBlogs(res.data);
             } catch (err) {
                 console.error('Error fetching blogs:', err);
