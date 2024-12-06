@@ -4,50 +4,54 @@ import { Link } from 'react-router-dom';
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
-    const [featuredBlog, setFeaturedBlog] = useState([]);
+    const [featuredBlog, setFeaturedBlog] = useState(null); // Initialize with null
 
+    // Fetch the featured blog
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchFeaturedBlog = async () => {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/featured`);
-                setFeaturedBlog(res.data[0]);
-                console.log(res.data)
+                setFeaturedBlog(res.data[0]); // Assuming res.data is an array and you want the first item
+            } catch (err) {
+                console.error('Error fetching featured blog', err);
             }
-            catch (err) {
+        };
 
-            }
-        }
-
-        fetchData();
+        fetchFeaturedBlog();
     }, []);
 
+    // Fetch the list of blogs
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/`);
-                setBlogs(res.data);
+                setBlogs(res.data); // Assuming res.data is an array
+            } catch (err) {
+                console.error('Error fetching blogs', err);
             }
-            catch (err) {
-
-            }
-        }
+        };
 
         fetchBlogs();
     }, []);
 
+    // Capitalize the first letter of a word
     const capitalizeFirstLetter = (word) => {
-        if (word)
-            return word.charAt(0).toUpperCase() + word.slice(1);
+        if (word) return word.charAt(0).toUpperCase() + word.slice(1);
         return '';
     };
 
+    // Generate the blog list layout
     const getBlogs = () => {
+        if (!Array.isArray(blogs) || blogs.length === 0) {
+            return <p>No blogs available</p>; // Display a message if no blogs are available
+        }
+
         let list = [];
         let result = [];
-        
-        blogs.map(blogPost => {
-            return list.push(
-                <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+
+        blogs.forEach(blogPost => {
+            list.push(
+                <div key={blogPost.id} className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div className="col p-4 d-flex flex-column position-static">
                         <strong className="d-inline-block mb-2 text-primary">{capitalizeFirstLetter(blogPost.category)}</strong>
                         <h3 className="mb-0">{blogPost.title}</h3>
@@ -69,10 +73,10 @@ const Blog = () => {
                         {list[i]}
                     </div>
                     <div className='col-md-6'>
-                        {list[i+1] ? list[i+1] : null}
+                        {list[i + 1] ? list[i + 1] : null}
                     </div>
                 </div>
-            )
+            );
         }
 
         return result;
@@ -90,17 +94,23 @@ const Blog = () => {
 
             <div className="jumbotron p-4 p-md-5 text-white rounded bg-dark">
                 <div className="col-md-6 px-0">
-                    <h1 className="display-4 font-italic">{featuredBlog.title}</h1>
-                    <p className="lead my-3">{featuredBlog.excerpt}</p>
-                    <p className="lead mb-0">
-                        <Link to={`/blog/${featuredBlog.slug}`} className="text-white font-weight-bold">
-                            Continue reading...
-                        </Link>
-                    </p>
+                    {featuredBlog ? (
+                        <>
+                            <h1 className="display-4 font-italic">{featuredBlog.title}</h1>
+                            <p className="lead my-3">{featuredBlog.excerpt}</p>
+                            <p className="lead mb-0">
+                                <Link to={`/blog/${featuredBlog.slug}`} className="text-white font-weight-bold">
+                                    Continue reading...
+                                </Link>
+                            </p>
+                        </>
+                    ) : (
+                        <p>Loading featured blog...</p>  // Display while loading featured blog
+                    )}
                 </div>
             </div>
 
-            {getBlogs()}
+            {getBlogs()}  {/* Display the blogs */}
         </div>
     );
 };

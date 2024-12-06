@@ -62,7 +62,12 @@ const Category = () => {
                     </Link>
                 </div>
                 <div className="col-auto d-none d-lg-block">
-                    <img width="200" height="250" src={blogPost.thumbnail} alt="thumbnail" />
+                    <img width="200"
+                         height="250" 
+                         src={blogPost.thumbnail} 
+                         alt={blogPost.title}
+                         style={{ objectFit: 'cover' }}
+                     />
                 </div>
             </div>
         ));
@@ -82,10 +87,15 @@ const Category = () => {
     return (
         <div className="container mt-3">
             <h3 className="display-4">{currentCategory} Category</h3>
+            {/* Navigation Bar */}
             <div className="nav-scroller py-1 mb-2">
                 <nav className="nav d-flex justify-content-between">
-                    {['world', 'technology',  'travel'].map((cat) => (
-                        <Link key={cat} className="p-2 text-muted" to={`/category/${cat}`}>
+                    {['world', 'technology', 'travel'].map((cat) => (
+                        <Link
+                            key={cat}
+                            className="p-2 text-muted"
+                            to={`/category/${cat}`}
+                        >
                             {capitalizeFirstLetter(cat)}
                         </Link>
                     ))}
