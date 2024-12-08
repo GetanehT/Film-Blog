@@ -38,6 +38,18 @@ class Post(models.Model):
 
         self.slug = slug
 
+        if self.featured:
+            try:
+                temp = Post.objects.get(featured=True)
+                if self != temp:
+                    temp.featured = False
+                    temp.save()
+            except Post.DoesNotExist:
+                pass
+        
+        super(Post, self).save(*args, **kwargs)
+
+
        
     def __str__(self):
         return self.title

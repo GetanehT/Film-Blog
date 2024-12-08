@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "bootstrap": "^5.3.3",
-    "serve": "^14.2.4"
-  },
-  "devDependencies": {
-    "react-scripts": "^5.0.1"
-  }
-}

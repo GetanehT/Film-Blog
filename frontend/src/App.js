@@ -6,14 +6,15 @@ import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
 import Category from './components/Category';
 import Navbar from "./components/Navbar";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     return (
         <Router>
             <Layout>
-                <Navbar /> {/* Move Navbar here so it appears across all pages */}
+                <Navbar /> {/* Navbar appears on all pages */}
                 <Routes>
-                    {/* Updated Route syntax */}
+                    {/* Define all routes with their corresponding components */}
                     <Route path="/" element={<Home />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/category/:id" element={<Category />} />
