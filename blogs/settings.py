@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'corsheaders',
     'django_summernote',
+    'ckeditor',
     'blog',
 ]
 

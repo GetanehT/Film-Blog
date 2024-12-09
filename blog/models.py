@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.template.defaultfilters import slugify
-
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -20,7 +20,7 @@ class Post(models.Model):
     excerpt = models.CharField(max_length=150)
     month = models.CharField(max_length=3)
     day = models.CharField(max_length=2)
-    contents =  models.TextField()
+    contents =  RichTextField()
     featured = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=datetime.now, blank=True)
 
