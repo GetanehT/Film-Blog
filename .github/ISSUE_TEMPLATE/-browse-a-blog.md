@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-As a **user**, I want **to browse a list of films to discover new movies to watch.
+As a **user**, I want **to browse a blog** to discover **new travel**.
 
 - Acceptance criteria 1
 
