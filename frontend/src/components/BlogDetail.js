@@ -42,6 +42,7 @@ const BlogDetail = () => {
                     <h4>
                         {blog.month} {blog.day}
                     </h4>
+                   <div className='flex flex-row justify-center'><img alt="blog image" src={blog.thumbnail} className='h-50 w-50' /></div>
                     <div className="mt-5 mb-5" dangerouslySetInnerHTML={createBlog()} />
                 </>
             ) : (
