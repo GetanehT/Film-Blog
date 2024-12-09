@@ -1,5 +1,5 @@
 ---
-name: " Browse a list of films"
+name: " Browse a blog"
 about: Describe this issue template's purpose here.
 title: ''
 labels: ''
@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-As a **user**, I want **to browse a list of films to discover new movies to watch.
+As a **user**, I want **to browse a blog** to discover **new travel**.
 
 - Acceptance criteria 1
 
