@@ -27,7 +27,7 @@ print ("peopl people ----------------------")
 SECRET_KEY = 'django-insecure-53c7h7ix5=sgahzw*!=ovug-o@j#cmhrdmdj!_!i)#zwd_t(9!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["8000-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net",'localhost', '127.0.0.1', 'my-blog-application-6967878bdb6b.herokuapp.com']
 
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,7 +137,8 @@ STATIC_URL = "/static/"
 #STATICFILES_DIRS = [
  #   os.path.join(BASE_DIR, '')
 #]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
