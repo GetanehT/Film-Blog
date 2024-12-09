@@ -1,5 +1,5 @@
 ---
-name: " Browse a list of films"
+name: " Browse a blog"
 about: Describe this issue template's purpose here.
 title: ''
 labels: ''
