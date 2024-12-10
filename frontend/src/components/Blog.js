@@ -4,14 +4,19 @@ import { Link } from 'react-router-dom';
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
-    const [featuredBlog, setFeaturedBlog] = useState(null); // Initialize with null
+    const [featuredBlog, setFeaturedBlog] = useState(null);
+    const MEDIA_URL = 'https://8080-getaneht-myblogs-1gj5hblmclj.ws.codeinstitute-ide.net/media/';
 
-    // Fetch the featured blog
+    const getMediaURL = (path) => {
+        if (!path) return 'https://via.placeholder.com/200x250'; // Fallback image
+        return path.startsWith('http') ? path : `${MEDIA_URL}${path}`;
+    };
+
     useEffect(() => {
         const fetchFeaturedBlog = async () => {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/featured`);
-                setFeaturedBlog(res.data[0]); // Assuming res.data is an array and you want the first item
+                setFeaturedBlog(res.data[0]);
             } catch (err) {
                 console.error('Error fetching featured blog', err);
             }
@@ -20,12 +25,11 @@ const Blog = () => {
         fetchFeaturedBlog();
     }, []);
 
-    // Fetch the list of blogs
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/`);
-                setBlogs(res.data); // Assuming res.data is an array
+                setBlogs(res.data);
             } catch (err) {
                 console.error('Error fetching blogs', err);
             }
@@ -34,16 +38,14 @@ const Blog = () => {
         fetchBlogs();
     }, []);
 
-    // Capitalize the first letter of a word
     const capitalizeFirstLetter = (word) => {
         if (word) return word.charAt(0).toUpperCase() + word.slice(1);
         return '';
     };
 
-    // Generate the blog list layout
     const getBlogs = () => {
         if (!Array.isArray(blogs) || blogs.length === 0) {
-            return <p>No blogs available</p>; // Display a message if no blogs are available
+            return <p>No blogs available</p>;
         }
 
         let list = [];
@@ -60,7 +62,7 @@ const Blog = () => {
                         <Link to={`/blog/${blogPost.slug}`} className="stretched-link">Continue reading</Link>
                     </div>
                     <div className="col-auto d-none d-lg-block">
-                        <img width='200' height='250' src={blogPost.thumbnail} alt='thumbnail' />
+                        <img width="200" height="250" src={getMediaURL(blogPost.thumbnail)} alt="thumbnail" />
                     </div>
                 </div>
             );
@@ -68,13 +70,9 @@ const Blog = () => {
 
         for (let i = 0; i < list.length; i += 2) {
             result.push(
-                <div key={i} className='row mb-2'>
-                    <div className='col-md-6'>
-                        {list[i]}
-                    </div>
-                    <div className='col-md-6'>
-                        {list[i + 1] ? list[i + 1] : null}
-                    </div>
+                <div key={i} className="row mb-2">
+                    <div className="col-md-6">{list[i]}</div>
+                    <div className="col-md-6">{list[i + 1] ? list[i + 1] : null}</div>
                 </div>
             );
         }
@@ -83,12 +81,16 @@ const Blog = () => {
     };
 
     return (
-        <div className='container mt-3'>
+        <div className="container mt-3">
             <div className="nav-scroller py-1 mb-2">
                 <nav className="nav d-flex justify-content-between">
-                    <Link className="p-2 text-muted" to='/category/world'>World</Link>
-                    <Link className="p-2 text-muted" to='/category/technology'>Technology</Link>
-                    <Link className="p-2 text-muted" to='/category/travel'>Travel</Link>
+                    <Link className="p-2 text-muted" to="/category/world">World</Link>
+                    <Link className="p-2 text-muted" to="/category/technology">Technology</Link>
+                    <Link className="p-2 text-muted" to="/category/travel">Travel</Link>
+                    <Link className="p-2 text-muted" to="/search">
+    Search
+</Link>
+
                 </nav>
             </div>
 
@@ -105,12 +107,12 @@ const Blog = () => {
                             </p>
                         </>
                     ) : (
-                        <p>Loading featured blog...</p>  // Display while loading featured blog
+                        <p>Loading featured blog...</p>
                     )}
                 </div>
             </div>
 
-            {getBlogs()}  {/* Display the blogs */}
+            {getBlogs()}
         </div>
     );
 };

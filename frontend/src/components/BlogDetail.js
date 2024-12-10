@@ -3,14 +3,14 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const BlogDetail = () => {
-    const { id: slug } = useParams(); // Use `useParams` to get the route parameter
+    const { id: slug } = useParams();
     const [blog, setBlog] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/${slug}`);
-                console.log(res)
+                console.log(res.data);
                 setBlog(res.data);
             } catch (err) {
                 console.error('Error fetching blog:', err);
@@ -42,7 +42,8 @@ const BlogDetail = () => {
                     <h4>
                         {blog.month} {blog.day}
                     </h4>
-                   <div className='flex flex-row justify-center'><img alt="blog image" src={blog.thumbnail} className='h-50 w-50' /></div>
+                   <div className='flex flex-row justify-center'><img alt="blog image" src={blog.thumbnail} style={{ maxWidth: '100%', height: 'auto' }} />
+                   </div>
                     <div className="mt-5 mb-5" dangerouslySetInnerHTML={createBlog()} />
                 </>
             ) : (

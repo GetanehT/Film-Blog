@@ -18,6 +18,10 @@ const Home = () => (
                 <Link className="btn btn-outline-secondary btn-lg mx-2" to="/about" role="button">
                     Learn More About Us
                 </Link>
+                <Link className="p-2 text-muted" to="/search">
+                      Search
+                 </Link>
+
             </div>
         </div>
 
