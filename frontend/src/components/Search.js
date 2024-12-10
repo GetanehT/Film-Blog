@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -6,30 +6,42 @@ const Search = () => {
     const [query, setQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-
+    useEffect(() => {
         if (query.trim() === '') {
-            alert('Please enter a search query.');
+            setSearchResults([]);
             return;
         }
 
-        setIsSearching(true);
-        try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/search/`, {
-                params: { query },
-            });
-            setSearchResults(res.data);
-        } catch (err) {
-            console.error('Error fetching search results:', err);
-        } finally {
-            setIsSearching(false);
-        }
-    };
+        const fetchSearchResults = async () => {
+            setIsSearching(true);
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/search/`, {
+                    params: { query },
+                });
+                setSearchResults(res.data);
+            } catch (err) {
+                console.error('Error fetching search results:', err);
+            } finally {
+                setIsSearching(false);
+            }
+        };
+
+        if (debounceTimeout) clearTimeout(debounceTimeout);
+
+        const timeout = setTimeout(() => {
+            fetchSearchResults();
+        }, 300); // Adjust debounce delay as needed
+
+        setDebounceTimeout(timeout);
+
+        // Cleanup the timeout on component unmount or query change
+        return () => clearTimeout(timeout);
+    }, [query]);
 
     const renderSearchResults = () => {
-        if (searchResults.length === 0) {
+        if (searchResults.length === 0 && query.trim() !== '') {
             return <p>No results found.</p>;
         }
 
@@ -65,7 +77,7 @@ const Search = () => {
     return (
         <div className="container mt-3">
             <h1 className="display-4 text-center">Search Blogs</h1>
-            <form onSubmit={handleSearch} className="mb-5">
+            <div className="mb-5">
                 <div className="input-group">
                     <input
                         type="text"
@@ -74,11 +86,8 @@ const Search = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <button type="submit" className="btn btn-primary">
-                        Search
-                    </button>
                 </div>
-            </form>
+            </div>
 
             {isSearching ? (
                 <p>Searching...</p>
