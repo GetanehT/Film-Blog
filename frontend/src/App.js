@@ -7,7 +7,6 @@ import BlogDetail from './components/BlogDetail';
 import Category from './components/Category';
 import Navbar from "./components/Navbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Search from './components/Search';
 
 const App = () => {
     return (
@@ -20,7 +19,6 @@ const App = () => {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/category/:id" element={<Category />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
-                    <Route path="/search" element={<Search />} />
                 </Routes>
             </Layout>
         </Router>
@@ -28,3 +26,4 @@ const App = () => {
 };
 
 export default App;
+ 

@@ -19,13 +19,24 @@ const Category = () => {
                 const category = capitalizeFirstLetter(categoryId);
                 setCurrentCategory(category);
                 document.title = `${category} - Blog`;
-
+                function getCSRFToken() {
+                    const cookieValue = document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('csrftoken='))
+                        ?.split('=')[1];
+                    return cookieValue || '';
+                }
+                const csrfToken = getCSRFToken();
+                
                 const res = await axios.post(
                     `${process.env.REACT_APP_API_URL}/api/blog/category`,
                     { category },
-                    { headers: { 'Content-Type': 'application/json'} }
+                    { headers: { 'Content-Type': 'application/json','X-CSRFToken': csrfToken, } }
                 );
+                
                 const blogsData = Array.isArray(res.data) ? res.data : [];
+                console.log(csrfToken)
+                console.log('blogs data',blogsData)
                 setBlogs(blogsData);
             } catch (err) {
                 console.error('Error fetching blogs:', err);
@@ -34,19 +45,6 @@ const Category = () => {
 
         fetchBlogs();
     }, [categoryId]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories`);
-                setCategories(res.data);
-            } catch (err) {
-                console.error('Error fetching categories:', err);
-            }
-        };
-
-        fetchCategories();
-    }, []);
 
     const capitalizeFirstLetter = (word) => {
         return word ? word.charAt(0).toUpperCase() + word.slice(1) : '';
@@ -65,7 +63,7 @@ const Category = () => {
         if (blogs.length === 0) {
             return <p>No blogs found in this category.</p>;
         }
-        
+        console.log(blogs)
         const blogCards = blogs.map((blogPost) => (
             <div key={blogPost.slug} className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div className="col p-4 d-flex flex-column position-static">
@@ -82,7 +80,7 @@ const Category = () => {
                     </Link>
                 </div>
                 <div className="col-auto d-none d-lg-block">
-                    <img width="200" height="250" src={blogPost.thumbnail} alt={blogPost.title} style={{ objectFit: 'cover' }} />
+                    <img width="250" height="250" src={  `${process.env.REACT_APP_API_URL}/${blogPost.thumbnail}`} alt={blogPost.title} style={{ objectFit: 'cover' }} />
                 </div>
             </div>
         ));
