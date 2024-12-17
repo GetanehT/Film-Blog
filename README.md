@@ -40,10 +40,8 @@ Offer secure and scalable API endpoints for interacting with the content.
   * [Deployment](#deployment)
   * [Credits](#credits)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## Planning
- Planning
+
 The planning phase includes defining the project goals, setting up the development environment, deciding on the data models, and creating the necessary API endpoints to handle blog post retrieval, user comments, and category filters.
 
 Key considerations during the planning phase include:
@@ -291,8 +289,7 @@ All files containing custom Python code were then validated using the [Code Inst
 
 #### Bugs found while testing the API in isolation
 - During testing, it became apparent that a API was unable to connect with the URL. This was fixed by adding slash/.
-- Testing also revealed that the programatically generated event recurrences erroneously included the currently authenticated user as the 'owner' of the event, rather than the user who created them. This was fixed by changing two variables in `events/utils.py`.
-  
+
 ### Unresolved bugs
     The issue was overcome by manually checking the status of the user within the `perform_create` method, but given more time it would be desirable to look into this further and revert to correct use of permission classes here if possible.
 
