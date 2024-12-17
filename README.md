@@ -12,15 +12,14 @@ Allow the management of content via the Django admin interface.
 Offer secure and scalable API endpoints for interacting with the content.
 
 ## Table of contents
-- [TribeHub](#tribehub)
+- [My_Blogs](#My_Blogs)
   * [Project goals](#project-goals)
   * [Table of contents](#table-of-contents)
   * [Planning](#planning)
     + [Data models](#data-models)
-      - [**Profile**](#--profile--)
-      - [**Tribe**](#--tribe--)
-      - [**Event**](#--event--)
-    + [**Notification**](#--notification--)
+    + [Category model](#category-model)
+    +[Post model](#post-model)
+    +[Fields](#Fields)
     + [**Contact**](#--contact--)
   * [API endpoints](#api-endpoints)
   * [Frameworks, libraries and dependencies](#frameworks--libraries-and-dependencies)
@@ -138,59 +137,7 @@ __str__:
 Returns a string in the format:
 "Comment by {name} on {post.title}"
 
-**Example**
-A comment by "John Doe" on the post "Exploring the World":
-name: "John Doe"
-email: "johndoe@example.com"
-body: "This was a fantastic read!"
-post: "Exploring the World"
 
-#### **Profile**
-
-In the context of the My-Blog project, the Profile refers to a user’s personal account or identity within the system. It stores data about the user, including their posts, comments, and preferences. Each profile is associated with a user account, which allows for user authentication and authorization.
-
- **Properties**
-
-A Profile typically includes the following fields:
-
-- User: A foreign key to the User model, representing the person who owns the profile. This is typically linked to a user account that has been created and authenticated.
-
-- Display Name: A string field to allow the user to display a custom name or nickname.
-
-- Email: The user's email address, which can be used for notifications, password recovery, etc.
-
-- Profile Picture: A field allowing users to upload an image as 
-  their avatar or profile picture.
-
-- Bio: A text field where users can write a short biography or 
-  description of themselves.
-
-- Date Joined: A timestamp that records when the user account 
-  was created, useful for tracking user engagement over time.
-
-- Location (optional): A field to store the user’s geographical 
-  location, which could be useful for targeted content or 
-   community building.
-  
-
-
-
-
-
-
-
-
-<p align="center">
-    <img src="readme_media/pp5_db_schema.png" width=400>
-</p>
-
-<p align="center">
-    Link to full-size diagram: 
-</p>
-
-<p align="center">
-    <a href="readme_media/pp5_db_schema.png" target="_rel">Link to full size DB schema</a>
-</p>
 
 ## API Endpoints
 
@@ -257,23 +204,6 @@ Below are the detailed API endpoints for each model in the Blog application:
 |-----------------|-------------|----------------|-----------|------------------|---------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
 | `/api/blog/:id` | DELETE      | Delete         | JSON      | N/A              | `{ "message": "Blog post deleted successfully" }`                                                                    | Deletes a specific blog post identified by `:id`.              |
 
----
-
-## Example of Request & Response Formats
-
-### POST Request to Create a Blog:
-```http
-POST /api/blog/
-Content-Type: application/json
-
-{
-    "title": "How to Use React Router",
-    "category": "Technology",
-    "excerpt": "Learn how to set up routing in React.",
-    "content": "React Router is a powerful library for handling navigation in React applications. Here's how to get started..."
-}
-
-
 Table generated using https://www.tablesgenerator.com/markdown_tables/load
 
 <p align="center">
@@ -285,6 +215,7 @@ Table generated using https://www.tablesgenerator.com/markdown_tables/load
 </p>
 
 ## Frameworks, libraries and dependencies
+
 My_Blogs API is implemented in Python using [Django](https://www.djangoproject.com) and [Django Rest Framework](https://django-filter.readthedocs.io/en/stable/).
 
 The following additional utilities, apps and modules were also used.
@@ -300,7 +231,7 @@ https://dj-rest-auth.readthedocs.io/en/latest/introduction.html
 
 Provides REST API endpoints for login and logout. The user registration endpoints provided by dj-rest-auth are not utilised fOR My_Blogs frontend, as custom functionality was required and implemented by the My_Blogs API.
 
-### djangorestframework-simplejwt
+### djangorestframework
 https://django-rest-framework-simplejwt.readthedocs.io/en/latest/
 
 Provides JSON web token authentication.
@@ -340,28 +271,6 @@ A series of manual tests were carried out for each end point using the Django Re
 
 All the features of the deployed API were tested as part of testing/acceptance criteria for each of the React frontend user stories. 
 
-Testing on the frontend revealed a number of bugs which had not been detected while testing the API in isolation, and led to the implementation of several additional features for consumption by the React app. The bugs are detailed in the bugs section below, and the following additional features were added as a result of front-end testing:
-
-- The `display_name` and `is_admin` fields from the Profile model were added to the serializer for the User model, as the React app requires easy access to these for (among other things) 
-- The profile image of the user who created a calendar event was added to the JSON generated by the `events` endpoints, to enable the React app to easily display an Avatar for the user who created a calendar event.
-- Programatically generated event recurrences did not include details of users who had accepted invitations, meaning the React app could only display this data for the original event. The UserSerializer already utilised for the original events saved in the database was then also used to serialize the user data for the recurrences.
-- An event field containing full details of the event to which a notification relates was added to the notifications serializer, otherwise the React app would have to request data for each event separately from the `events/<id:int>` endpoint.
-- A `user` URL parameter was added to enable searching for events based on who created the event.
-- A `company` field was added to the Contacts model.
-
-### Automated tests
-
-Nine unit tests were written for the `contacts` endpoint. These are in `contacts/tests.py`, and all passed:
-
-- Test that the tribe administrator can list contacts for their tribe.
-- Test that a tribe member with no admin status in the same tribe can list contacts.
-- Test that an unauthenticated user cannot list contacts.
-- Test that a tribe administrator can create a new contact for their tribe.
-- Test that a tribe member without admin status cannot create a new contact.
-- Test that an unauthenticated user cannot create a new contact.
-- Test that a tribe administrator can delete a contact.
-- Test that a tribe member without admin status cannot delete a contact.
-- Test than an unauthenticated user cannot delete a contact.
 
 
 ### Python validation
@@ -376,39 +285,23 @@ All files containing custom Python code were then validated using the [Code Inst
 - `urls.py`: no errors found
 - `views.py`: no errors found
 - `tribehub_drf/settings.py`: no errors found
-
-
 - `tribes/admin.py`: no errors found
 - `tribes/models.py`: no errors found
 - `tribes/serializers.py`: no errors found
 - `tribes/urls.py`: no errors found
 - `tribes/views.py`: no errors found
 
-### Resolved bugs
+
 
 #### Bugs found while testing the API in isolation
-- During testing, it became apparent that a user was unable to create a calendar event with no other members of the tribe invited (i.e. events only for themselves), because the `to` field on the `Event` model defaulted to not allowing null values. This was fixed by adding `null=True` and `blank=True` arguments to the field.
+- During testing, it became apparent that a API was unable to connect with the URL. This was fixed by adding slash/.
 - Testing also revealed that the programatically generated event recurrences erroneously included the currently authenticated user as the 'owner' of the event, rather than the user who created them. This was fixed by changing two variables in `events/utils.py`.
-- Testing demonstrated that using an id for a non-existent event object for the `events/response/id` endpoint resulted in an uncaught exception. Try...except blocks were added to  the EventResponse class in `events/views.py` to ensure any references to non-existent events are handled gracefully alongside permission related errors, and that appropriate HTTP status codes are returned for each class of error.
-
-
-#### Bugs found while testing the React front-end
-- When first implementing user sign-in from the React front-end, submission of the POST form data to `dj-rest-auth/login/` was causing an HTTP 405 'method not allowed' error. This was tracked down to a space in the string for the value of `JWT-REFRESH-TOKEN` in `settings.py`. In order to work out what exactly was causing the bug, the settings of the React app were temporarily changed to make requests to `localhost` instead of the deployed API, enabling the API to run in debug mode and to make live changes to the code and see their effect on the frontend without having to rebuild the deployed API. Once the bug was fixed, the changes were pushed to GitHub and the API redeployed.
-- A bug was found causing incorrect profile image URLs to be served in the JSON data. This was fixed by overrdiding the `to_representation` method of the Profile and Tribe serializers so that the URL property of each CloudinaryField is used to generate the image URLs.
-- Although programatically generated event recurrences appeared to be created correctly when testing via the Django Rest Framework admin interface, once they could be visualised on a calendar in the React frontend a number of issues with recurrences became apparent, including duplicated events on the same day and incorrect recurrence dates. These bugs were caused by incorrect use of the django-recurrence app used to generate the recurrences; the documentation for  django-recurrence is somewhat sparse, so some trial and error experimentation and inspection of the django-recurrence source code to identify relevant kwargs to try was required. The bugs were mostly fixed, with one exception (see below).
-- During development of the frontend React application, it was found that requests for calendar events were causing an internal server error after a user was deleted. This was found to be because the user's profile had been deleted, but there were still references to it in some calendar events (e.g. if the user whose account was deleted was invited to an event and/or recorded as having accepted the invitation). This was addressed by performing 'clean-up' actions to remove references to deleted user accounts during the account deletion process.
-- The behaviour of monthly recurrences when the original date is at the end of the month proved difficult to refine due to the varying number of days in a month. Initially, recurrences where the orginal event day is in the range `29 - 31` were generated using an offset from the end of the month. For example, monthly recurrences for an event with a date of 30 January 2023 would fall on the 30th of the month for months with 31 days, but the 29th of the month for months with 30 days. [Further research](https://stackoverflow.com/questions/35757778/rrule-for-repeating-monthly-on-the-31st-or-closest-day) eventually led to a better approach which ensures recurring monthly events at the end of the month are appropriately generated for all varying month lengths.
-- Frontend testing exposed an issue with duration field data for programatically generated recurrences of calendar events being formatted incorrectly, causing errors in the React app. This was rectified by using a ModelSerializer to format the data for that specific field of the recurrences.
-- A browser console error in the React app revealed that Cloudinary images were being served insecurely via http. After unnsuccessfully trying some changes to the Cloudinary configuration in `settings.py` and conducting some further research, it appeared that this might be a bug affecting some other part of the software stack, possibly the django-cloudinary-storage app. A fix was found on [Stack Overflow](https://stackoverflow.com/questions/48508750/how-to-force-https-in-a-django-project-using-cloudinary), requiring the `url_options` dictionary for every reference to an image instance to be individually set to `{'secure': True}`.
-- Frontend testing demonstrated that the `company` field of the Contacts model was being omitted from search results. This was a simple fix, as the field had been added to the model later in development, and omitted from the `search_fields` parameter for the filter backends.  
-
+  
 ### Unresolved bugs
-- The `perform_create` method of the `ListCreate` generic view is overriden in `contacts/views.py`. Django does not seem to respond to custom permission classes in this circumstance, meaning that unauthorised users (i.e. authenticated users without tribe admin status) were able to create new contacts. Print statements at various points in the code were used to verify that the relevant custom permission classes were being invoked and returning the correct values, and it remains uncertain whether this issue is due to a bug in Django Rest Framework or in this project. 
-
     The issue was overcome by manually checking the status of the user within the `perform_create` method, but given more time it would be desirable to look into this further and revert to correct use of permission classes here if possible.
 
 ## Deployment
-The TribeHub API is deployed to Heroku, using an ElephantSQL Postgres database.
+The TribeHub API is deployed to Heroku, using  Postgres database.
 To duplicate deployment to Heroku, follow these steps:
 
 - Fork or clone this repository in GitHub.
@@ -421,15 +314,6 @@ To duplicate deployment to Heroku, follow these steps:
 - Enter a name for the app and select the appropriate region.
 - Select 'Create app'.
 - Select 'Settings' from the menu at the top.
-- Login to ElephantSQL.
-- Click 'Create new instance' on the dashboard.
-- Name the 'plan' and select the 'Tiny Turtle (free)' plan.
-- Select 'select region'.
-- Choose the nearest data centre to your location.
-- Click 'Review'.
-- Go to the ElephantSQL dashboard and click on the 'database instance name' for this project.
-- Copy the ElephantSQL database URL to your clipboard (this starts with `postgres://`).
-- Return to the Heroku dashboard.
 - Select the 'settings' tab.
 - Locate the 'reveal config vars' link and select.
 - Enter the following config var names and values:
@@ -446,7 +330,6 @@ To duplicate deployment to Heroku, follow these steps:
 - Your API will shortly be deployed and you will be given a link to the deployed site when the process is complete.
 
 ## Credits
-- The technique to limit the size of image uploads to cloudinary is adapted from this [Cloudinary](https://support.cloudinary.com/hc/en-us/community/posts/360009752479-How-to-resize-before-uploading-pictures-in-Django) support article
 - A replacement for the deprecated `django.conf.urls.url()` was implemented as per this [StackOverflow article](https://stackoverflow.com/questions/70319606/importerror-cannot-import-name-url-from-django-conf-urls-after-upgrading-to)
 - The approach to creating a string representation of a many to many field in the Django admin panel is adapted from https://stackoverflow.com/questions/18108521/many-to-many-in-list-display-django
 - The technique to create a custom filter for date ranges using django-filters is adapted from this [StackOverflow article](https://stackoverflow.com/questions/37183943/django-how-to-filter-by-date-with-django-rest-framework)
@@ -458,15 +341,9 @@ To duplicate deployment to Heroku, follow these steps:
 - The technique for using different serializers depending on the HTTP request type within the same generic class view is from [Stackoverflow](https://stackoverflow.com/questions/22616973/django-rest-framework-use-different-serializers-in-the-same-modelviewset)
 - The fix for the Django Rest Framework bug that prevents user's cookies from being cleared on logout is from the Code Institute Django Rest Framework walkthrough project
 - The technique for overriding the `to_representation` metehod of a serializer to make a change to the outgoing JSON data used in `profiles/serializers.py` is from [testdriven.io](https://testdriven.io/tips/ed79fa08-6834-4827-b00d-2609205129e0/)
-- The code to correctly deal with monthly recurrences of events on days greater than 28th of the month is adapted from [this StackOverflow question](https://stackoverflow.com/questions/35757778/rrule-for-repeating-monthly-on-the-31st-or-closest-day)(although the question is for JavaScript the same rule can be applied in Python).
 - The technqiue to sort a list by a dictionary key used to sort events data by start date is from [this StackOverflow question](https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary)
-- The code to force cloudinary to serve images using HTTPS used in serializers is from [this StackOverflow question](https://stackoverflow.com/questions/48508750/how-to-force-https-in-a-django-project-using-cloudinary)
 
 In addition, the following documentation was extensively referenced throughout development:
-
 - [Django documentation](https://www.djangoproject.com)
 - [Django Rest Framework documentation](https://www.django-rest-framework.org)
-- [django-filter documentation](https://django-filter.readthedocs.io/en/stable/)
-- [django-recurrence documentation](https://django-recurrence.readthedocs.io/en/latest/)
-- [Python datetime documentation](https://docs.python.org/3/library/datetime.html)
-- [dateutil documentation](https://dateutil.readthedocs.io/en/stable/index.html)
+
