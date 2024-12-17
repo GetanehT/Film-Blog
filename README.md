@@ -35,12 +35,8 @@ Offer secure and scalable API endpoints for interacting with the content.
     + [django-cors-headers](#django-cors-headers)
   * [Testing](#testing)
     + [Manual testing](#manual-testing)
-    + [Automated tests](#automated-tests)
     + [Python validation](#python-validation)
-    + [Resolved bugs](#resolved-bugs)
       - [Bugs found while testing the API in isolation](#bugs-found-while-testing-the-api-in-isolation)
-      - [Bugs found while testing the React front-end](#bugs-found-while-testing-the-react-front-end)
-    + [Unresolved bugs](#unresolved-bugs)
   * [Deployment](#deployment)
   * [Credits](#credits)
 
