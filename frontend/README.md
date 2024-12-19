@@ -30,68 +30,25 @@ The project also utilises a Django Rest Framework web API, the repository for wh
     + [Colours](#colours)
     + [Fonts](#fonts)
   * [Features](#features)
-    + [Header with welcome message, notifications menu and sign-out button](#header-with-welcome-message--notifications-menu-and-sign-out-button)
-    + [Bottom navbar](#bottom-navbar)
-    + [Drop-down notifications menu](#drop-down-notifications-menu)
-    + [Home page with family calendar](#home-page-with-family-calendar)
-    + [Add event and search buttons](#add-event-and-search-buttons)
-    + [Calendar events detail displayed below calendar](#calendar-events-detail-displayed-below-calendar)
-    + [Edit event and delete event buttons](#edit-event-and-delete-event-buttons)
-    + [Add event form](#add-event-form)
-    + [Edit event form](#edit-event-form)
-    + [Family contacts page](#family-contacts-page)
-    + [Add contacts and search contacts buttons](#add-contacts-and-search-contacts-buttons)
-    + [Add contact form](#add-contact-form)
-    + [Search contacts form](#search-contacts-form)
-    + [Edit contact and delete contact buttons](#edit-contact-and-delete-contact-buttons)
-    + [Edit contact form](#edit-contact-form)
-    + [Account page with My Tribe, My Profile, Change Password and Delete Account](#account-page-with-my-tribe--my-profile--change-password-and-delete-account)
+    + [Header with welcome]
+    + [Home page]
+    + [blogs]
+    + [Blogs Detail]
+    + [category]
+    with-my-tribe--my-profile--change-password-and-delete-account)
     + [My Tribe](#my-tribe)
     + [My Profile](#my-profile)
     + [Change password](#change-password)
     + [Delete account](#delete-account)
-    + [Modal dialogs to confirm or cancel destructive actions](#modal-dialogs-to-confirm-or-cancel-destructive-actions)
-    + ['Single page mode' for medium and large screen sizes](#-single-page-mode--for-medium-and-large-screen-sizes)
-    + [Prompts for new users](#prompts-for-new-users)
-    + [Success messages](#success-messages)
-    + [Error messages](#error-messages)
-    + [Darkmode](#darkmode)
-    + [Re-use of components](#re-use-of-components)
-      - [`Avatar.js`](#-avatarjs-)
-      - [`ConfirmModal.js`](#-confirmmodaljs-)
-      - [`NotificationItem.js`](#-notificationitemjs-)
-      - [`Spinner.js`](#-spinnerjs-)
-      - [`Account.js`](#-accountjs-)
-      - [`TribeMember.js`](#-tribememberjs-)
-      - [`Contacts.js`](#-contactsjs-)
-      - [`Contact.js`](#-contactjs-)
-      - [`ContactDetailsForm.js`](#-contactdetailsformjs-)
-      - [`CalEvent.js`](#-caleventjs-)
-      - [`EventDetailsForm.js`](#-eventdetailsformjs-)
     + [CRUD functionality](#crud-functionality)
-    + [Future improvements and features](#future-improvements-and-features)
-      - [Short term future improvements](#short-term-future-improvements)
-      - [Longer term future features](#longer-term-future-features)
-  * [Frameworks, libraries and dependencies](#frameworks--libraries-and-dependencies)
-    + [React-Calendar](#react-calendar)
+    + [Future improvements and features]
+    + * [Frameworks, libraries and dependencies](#frameworks--libraries-and-dependencies)
     + [React-Router-DOM](#react-router-dom)
     + [ReactDOM](#reactdom)
     + [Axios](#axios)
-    + [JWT Decode](#jwt-decode)
-    + [Tailwind CSS](#tailwind-css)
-    + [daisyUI](#daisyui)
     + [React Bootstrap Icons](#react-bootstrap-icons)
   * [React features used to enhance user experience](#react-features-used-to-enhance-user-experience)
     + [Custom hooks](#custom-hooks)
-  * [Testing](#testing)
-    + [Manual testing](#manual-testing)
-    + [Validator testing](#validator-testing)
-    + [W3C CSS validator](#w3c-css-validator)
-    + [ESLint JavaScript validator](#eslint-javascript-validator)
-    + [WAVE web accessability testing](#wave-web-accessability-testing)
-    + [Lighthouse testing](#lighthouse-testing)
-    + [Resolved bugs](#resolved-bugs)
-    + [Unresolved bugs](#unresolved-bugs)
   * [Deployment](#deployment)
   * [Credits](#credits)
     + [Code](#code)
@@ -706,56 +663,4 @@ To deploy to Heroku, follow these steps:
 
 When deployment is complete, you will be given a link to the deployed site.
 
-## Credits
 
-### Code
-- How to use the React Router `<BrowserRouter>` component to provide history context to `<Router>` components is from [this Stack Overflow article](https://stackoverflow.com/questions/65425884/react-router-v6-error-useroutes-may-be-used-only-in-the-context-of-a-route)
-- The technique to use an event handler to store the current size of the window in state variables in order to conditionally render components was adapted from [this Stack Overflow question](https://stackoverflow.com/questions/62954765/how-to-do-conditional-rendering-according-to-screen-width-in-react)
-- Code to handle current user context in `src/contexts/CurrentUserContext.js` was adapted from Code Institute 'Moments' React walkthrough lessons
-- Code to create and use axios interceptors to refresh tokens in `src/contexts/CurrentUserContext.js` and `src/utils/utils.js` was adapted from the Code Institute 'Moments' React walkthrough lessons
-- The technique to add modal dialogs to the end of the body element in the DOM is from [upmostly.com](https://upmostly.com/tutorials/modal-components-react-custom-hooks)
-- How to use the `:global` selector in CSS to ensure styles are overriden in a React component is from [Stack Overflow](https://stackoverflow.com/questions/42191671/css-modules-reactjs-parent-and-child-css-classes-in-different-components)
-- How to use `require` to ensure webpack processes local images is from [Stack Overflow](https://stackoverflow.com/questions/34582405/react-wont-load-local-images)
-- How to use CSS filters to colour a SVG is from [Stack Overflow](https://stackoverflow.com/questions/22252472/how-can-i-change-the-color-of-an-svg-element)
-- How to define a CSS class as part of a DaisyUI theme is from [GitHub](https://github.com/saadeghi/daisyui/discussions/640)
-- How to iterate over the keys of a JavaScript object in React is from [Stack Overflow](https://stackoverflow.com/questions/40803828/how-can-i-map-through-an-object-in-reactjs)
-- The technique for handling multiple selection elements in controlled React forms is from [Stack Overflow](https://stackoverflow.com/questions/50090335/how-handle-multiple-select-form-in-reactjs)
-- How to correctly use the useCallback hook to declare a function outside of useEffect and call from inside useEffect to enable code reuse is from [Stack Overflow](https://stackoverflow.com/questions/56410369/can-i-call-separate-function-in-useeffect)
-- How to add a number of minutes to a DateTime object is from [StackOverflow](https://stackoverflow.com/questions/1197928/how-to-add-30-minutes-to-a-javascript-date-object)
-- The technique for using a timer to prevent excessive network requests when the values of input elements on a search form change is from the Code Institute Moments walkthrough project
-- How to redirect to an appropriate page when the user enters an invalid URL using the Navigate component from React-Router-DOM has been adapted from [copycat.dev](https://www.copycat.dev/blog/react-router-redirect/)
-- How to use Google Fonts in a Tailwind CSS project is from [daily-dev-tips.com](https://daily-dev-tips.com/posts/using-google-fonts-in-a-tailwind-project/)
-- How to invert the colour of an element compared to its background is from [Stack Overflow](https://stackoverflow.com/questions/17741629/how-can-i-invert-color-using-css)
-- How to create divs with diagonal lines is from [9elements.com](https://9elements.com/blog/pure-css-diagonal-layouts/)
-- How to use the text-shadow CSS attribute to add an outline to text is from [Stack Overflow](https://stackoverflow.com/questions/57464935/font-outline-using-only-css)
-- How to configure JEST to allow tests with Axios v1 and above is from [Stack Overflow](https://stackoverflow.com/questions/74940474/jest-encountered-an-unexpected-token)
-
-The following documentation was referenced extensively throughout the project:
-
-- [React documentation](https://react.dev/reference/react)
-- [React Router Documentation](https://v5.reactrouter.com/)
-- [TailwindCSS documentation](https://tailwindcss.com/docs/)
-- [DaisyUI documentation](https://daisyui.com/components/)
-
-### Media
-- Placeholder screenshots image used on the wireframes by u_fg0tkeqgiy on [Pixabay](https://pixabay.com/vectors/view-web-secure-image-ipad-laptop-7321141/).
-- Hero image used on the landing page by Pexels on [Pixabay](https://pixabay.com/photos/child-couple-daylight-family-1844901/).
-- Placeholder avatar image used on the wireframes and in the app by Stephanie Edwards on [Pixabay](https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/).
-- Fidget spinner image used for loading spinner by b0red on [Pixabay](https://pixabay.com/vectors/fidget-spinner-add-a-d-spin-2304681/)
-- Images used for event category icons:
-  - Club icon used for club by Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/clubs-cards-club-shape-card-games-33561/)
-  - Mortar board icon used for education Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/graduation-cap-graduation-education-311979/)
-  - Medical bag icon used for medical by OpenClipart-Vectors on [Pixabay](https://pixabay.com/vectors/red-cross-aide-assistance-158454/)
-  - Musical note icon used for music by ruhbastard on [Pixabay](https://pixabay.com/vectors/music-note-music-note-musical-notes-1967480/)
-  - Metallic O icon used for other by Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/english-alphabets-o-letters-15th-33793/)
-  - Shopping trolley icon used for shopping by Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/shopping-cart-caddy-shopping-trolley-304843/)
-  - Volley ball icon used for sport by Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/volleyball-sport-black-white-306791/)
-  - Aeroplane icon used for vacation by GDj on [Pixabay](https://pixabay.com/vectors/jumbo-jet-airplane-aeroplane-1801305/)
-  - Office desk icon used for work by OpenClipart-Vectors on [Pixabay](https://pixabay.com/vectors/computer-office-worker-typing-146329/)
-  - Present icon used for celebration by chachaoriginal on [Pixabay](https://pixabay.com/vectors/red-icon-present-gift-wrapped-1902863/)
-  - Car icon used for outing by Clker-Free-Vector-Images on [Pixabay](https://pixabay.com/vectors/car-automobile-sedan-four-door-car-35502/)
-  - Cat icon used for pets by Lohrelei on  [Pixabay](https://pixabay.com/vectors/cat-kitten-sitting-silhouette-1144200/)
-- Fonts:
-    - [Google Fonts Fredoka One](https://fonts.google.com/?query=fredoka+one&sort=popularity)
-    - [Google Fonts Nunito](https://fonts.google.com/specimen/Nunito?query=nunito&sort=popularity)
-    - [Google Fonts Lato](https://fonts.google.com/?query=lato&sort=popularity)
